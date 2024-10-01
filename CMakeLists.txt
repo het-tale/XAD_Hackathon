@@ -12,4 +12,4 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Create an executable named "myapp" from the source files
-add_executable(myapp ${SOURCES})
+add_executable(my_program ${SOURCES})

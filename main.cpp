@@ -1,10 +1,13 @@
 #include "Matrix.hpp"
+#include "benchmark code/listings.hpp"
 
 int main() {
 	try {
-
+		ft_listing_1();
+		// ft_listing_2();
+		// ft_listing_3();
 	} catch (const std::exception &e) {
-		std::cout << "Exception:" << e.what() << std::endl;
+		std::cout << "Exception: " << e.what() << std::endl;
 	}
 
 	return 0;

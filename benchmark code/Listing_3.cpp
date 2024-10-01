@@ -4,7 +4,7 @@
 #include <chrono>
 #include <iostream>
 
-int main() {
+void ft_listing_3() {
 	constexpr int N = 10000;
 	constexpr int M = 1000;
 	// create a big matrix of NxN

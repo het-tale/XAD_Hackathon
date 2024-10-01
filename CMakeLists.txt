@@ -25,14 +25,15 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
+set(TEST_SOURCES matrix_test.cpp)
 add_executable(
-  hello_test
-  hello_test.cpp
+  all_tests
+  ${TEST_SOURCES}
 )
 target_link_libraries(
-  hello_test
+  all_tests
   GTest::gtest_main
 )
 
 include(GoogleTest)
-gtest_discover_tests(hello_test)
+gtest_discover_tests(all_tests)

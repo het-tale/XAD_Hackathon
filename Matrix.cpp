@@ -3,17 +3,55 @@
 Matrix::Matrix(size_t rows, size_t cols)
 	: rows(rows), cols(cols)
 {
-	std::cout << "Matrix default constructor called" << std::endl;
 	this->matrix = std::vector<std::vector<double>>(rows);
 	for (size_t i = 0; i < rows; i++) {
 		this->matrix[i].reserve(cols);
 	}
+	std::cout << "Matrix parameterized constructor called" << std::endl;
 }
 
 Matrix::Matrix(size_t rows, size_t cols, double initValue)
 	: rows(rows), cols(cols), matrix(rows, std::vector<double>(cols, initValue))
 {
-	std::cout << "Matrix default constructor called" << std::endl;
+	std::cout << "Matrix parameterized constructor called" << std::endl;
+}
+
+Matrix::Matrix(const Matrix &other) {
+	(*this) = other;
+	std::cout << "Matrix copy constructor called" << std::endl;
+}
+
+Matrix &Matrix::operator=(const Matrix &other) {
+	if (this != &other) {
+		this->rows = other.rows;
+		this->cols = other.cols;
+		this->matrix.resize(this->rows);
+		for (size_t i = 0; i < this->rows; i++)
+			this->matrix[i] = other.matrix[i];
+	}
+	std::cout << "Matrix copy assignment operator called" << std::endl;
+	return (*this);
+}
+
+Matrix::Matrix(Matrix&& other)
+	: rows(other.rows), cols(other.cols), matrix(std::move(other.matrix))
+{
+	other.rows = 0;
+	other.cols = 0;
+	std::cout << "Matrix move constructor called" << std::endl;
+}
+
+Matrix &Matrix::operator=(Matrix&& other) {
+    if (this != &other) {
+		this->rows = other.rows;
+		this->cols = other.cols;
+		this->matrix = std::move(other.matrix);
+
+		other.rows = 0;
+		other.cols = 0;
+	}
+	std::cout << "Matrix move assignment operator called" << std::endl;
+	return *this;
 }
 
 Matrix::~Matrix() {

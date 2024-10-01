@@ -14,10 +14,23 @@ cmake ..
 # Build the project
 cmake --build .
 
+TEST_MODE=false
+if [[ "$#" -gt 0 ]]; then
+    case $1 in
+    --test)
+        TEST_MODE=true
+        ;;
+    esac
+fi
 # Check if compilation succeeded
-if [ $? -eq 0 ]; then
-    echo "Compilation successful, running program..."
-    ./my_program
+if [ "$TEST_MODE" = false ]; then
+    if [ $? -eq 0 ]; then
+        echo "Compilation successful, running program..."
+        ./my_program
+    else
+        echo "Compilation failed."
+    fi
 else
-    echo "Compilation failed."
+    echo "test activated..."
+    ctest
 fi

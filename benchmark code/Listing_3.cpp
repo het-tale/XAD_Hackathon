@@ -3,6 +3,10 @@
 #include <random>
 #include <chrono>
 #include <iostream>
+#include "../Matrix.hpp"
+#include "../MatrixView.hpp"
+#include "../fornebius.hpp"
+
 
 void ft_listing_3() {
 	constexpr int N = 10000;
@@ -34,7 +38,7 @@ void ft_listing_3() {
 		MatrixView mv(m, starti, startj, spani, spanj);
 
 		// use the result to avoid aggressive compiler to optimise out the loop.
-		sum += frobenius_norm(mv);
+		sum += frobeniusNorm(mv);
 	}
 	stop = std::chrono::high_resolution_clock::now();
 	auto t_comp = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count() * 1e-3;

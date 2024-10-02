@@ -1,7 +1,7 @@
 #include "Matrix.hpp"
 
 Matrix::Matrix(size_t rows, size_t cols)
-	: rows(rows), cols(cols)
+	: rows(rows), cols(cols), sum(0)
 {
 	this->matrix = std::vector<std::vector<double>>(rows);
 	for (size_t i = 0; i < rows; i++) {
@@ -13,6 +13,7 @@ Matrix::Matrix(size_t rows, size_t cols)
 Matrix::Matrix(size_t rows, size_t cols, double initValue)
 	: rows(rows), cols(cols), matrix(rows, std::vector<double>(cols, initValue))
 {
+	this->sum = pow(initValue, 2) * rows * cols;
 	std::cout << "Matrix parameterized constructor called" << std::endl;
 }
 
@@ -75,6 +76,8 @@ const double &Matrix::operator()(size_t row, size_t col) const {
 double &Matrix::operator()(size_t row, size_t col) {
 	if (row >= this->rows || col >= this->cols || row < 0 || col < 0)
 		throw std::out_of_range("Matrix indices are out of range");
+		
+	this->sum += pow(this->matrix[row][col], 2);
 	return this->matrix[row][col];
 }
 
@@ -86,4 +89,9 @@ std::ostream& operator<<(std::ostream &os, const Matrix &matrixObj) {
 		os << std::endl;
 	}
 	return os;
+}
+
+
+double Matrix::frobeniusNorm() const {
+	return sqrt(sum);
 }

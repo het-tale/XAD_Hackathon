@@ -9,6 +9,7 @@ class Matrix {
 		std::vector<std::vector<double>> matrix;
 		size_t rows;
 		size_t cols;
+		double sum;
 
 	public:
 		Matrix(size_t rows, size_t cols);
@@ -24,6 +25,9 @@ class Matrix {
 
 		const double &operator()(size_t row, size_t col) const;
 		double &operator()(size_t row, size_t col);
+
+
+		double frobeniusNorm() const;
 
 		friend std::ostream& operator<<(std::ostream &os, const Matrix &matrix);
 };

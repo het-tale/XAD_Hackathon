@@ -9,7 +9,7 @@ fi
 cd build
 
 # Run CMake to generate build files
-cmake ..
+cmake -S .. -B . 
 
 # Build the project
 cmake --build .

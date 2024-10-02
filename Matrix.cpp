@@ -27,8 +27,11 @@ Matrix &Matrix::operator=(const Matrix &other) {
 		this->rows = other.rows;
 		this->cols = other.cols;
 		this->matrix.resize(this->rows);
-		for (size_t i = 0; i < this->rows; i++)
-			this->matrix[i] = other.matrix[i];
+		for (size_t i = 0; i < this->rows; i++) {
+			this->matrix[i].resize(this->cols);
+			for (size_t j = 0; j < this->cols; j++)
+				this->matrix[i][j] = other.matrix[i][j];
+		}
 	}
 	std::cout << "Matrix copy assignment operator called" << std::endl;
 	return (*this);
@@ -76,8 +79,6 @@ const double &Matrix::operator()(size_t row, size_t col) const {
 double &Matrix::operator()(size_t row, size_t col) {
 	if (row >= this->rows || col >= this->cols || row < 0 || col < 0)
 		throw std::out_of_range("Matrix indices are out of range");
-		
-	this->sum += pow(this->matrix[row][col], 2);
 	return this->matrix[row][col];
 }
 

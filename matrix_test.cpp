@@ -89,52 +89,52 @@ TEST(MatrixTest, ConstructorWithInitialValue)
  * 4. It works with matrices of different sizes and values
  * 5. It correctly handles empty matrices (0x0)
  */
-// TEST(MatrixTest, CopyConstructor)
-// {
-//     // Test with a non-empty matrix
-//     Matrix original(3, 4, 2.5);
-//     Matrix copy(original);
+TEST(MatrixTest, CopyConstructor)
+{
+    // Test with a non-empty matrix
+    Matrix original(3, 4, 2.5);
+    Matrix copy(original);
 
-//     // Verify dimensions
-//     EXPECT_EQ(copy.getRows(), original.getRows());
-//     EXPECT_EQ(copy.getCols(), original.getCols());
+    // Verify dimensions
+    EXPECT_EQ(copy.getRows(), original.getRows());
+    EXPECT_EQ(copy.getCols(), original.getCols());
 
-//     // Verify all elements are copied correctly
-//     for (size_t i = 0; i < original.getRows(); ++i)
-//     {
-//         for (size_t j = 0; j < original.getCols(); ++j)
-//         {
-//             EXPECT_DOUBLE_EQ(copy(i, j), original(i, j));
-//         }
-//     }
+    // Verify all elements are copied correctly
+    for (size_t i = 0; i < original.getRows(); ++i)
+    {
+        for (size_t j = 0; j < original.getCols(); ++j)
+        {
+            EXPECT_DOUBLE_EQ(copy(i, j), original(i, j));
+        }
+    }
 
-//     // Modify the copy and check that the original is unchanged
-//     copy(1, 1) = 10.0;
-//     EXPECT_DOUBLE_EQ(copy(1, 1), 10.0);
-//     EXPECT_DOUBLE_EQ(original(1, 1), 2.5);
+    // Modify the copy and check that the original is unchanged
+    copy(1, 1) = 10.0;
+    EXPECT_DOUBLE_EQ(copy(1, 1), 10.0);
+    EXPECT_DOUBLE_EQ(original(1, 1), 2.5);
 
-//     // Test with a matrix containing different values
-//     Matrix original2(2, 2);
-//     original2(0, 0) = 1.0;
-//     original2(0, 1) = 2.0;
-//     original2(1, 0) = 3.0;
-//     original2(1, 1) = 4.0;
-//     Matrix copy2(original2);
+    // Test with a matrix containing different values
+    Matrix original2(2, 2);
+    original2(0, 0) = 1.0;
+    original2(0, 1) = 2.0;
+    original2(1, 0) = 3.0;
+    original2(1, 1) = 4.0;
+    Matrix copy2(original2);
 
-//     for (size_t i = 0; i < original2.getRows(); ++i)
-//     {
-//         for (size_t j = 0; j < original2.getCols(); ++j)
-//         {
-//             EXPECT_DOUBLE_EQ(copy2(i, j), original2(i, j));
-//         }
-//     }
+    for (size_t i = 0; i < original2.getRows(); ++i)
+    {
+        for (size_t j = 0; j < original2.getCols(); ++j)
+        {
+            EXPECT_DOUBLE_EQ(copy2(i, j), original2(i, j));
+        }
+    }
 
-//     // // Test with an empty matrix
-//     Matrix emptyOriginal(0, 0);
-//     Matrix emptyCopy(emptyOriginal);
-//     EXPECT_EQ(emptyCopy.getRows(), 0);
-//     EXPECT_EQ(emptyCopy.getCols(), 0);
-// }
+    // // Test with an empty matrix
+    Matrix emptyOriginal(0, 0);
+    Matrix emptyCopy(emptyOriginal);
+    EXPECT_EQ(emptyCopy.getRows(), 0);
+    EXPECT_EQ(emptyCopy.getCols(), 0);
+}
 
 /**
  * @brief Test the assignment operator of the Matrix class

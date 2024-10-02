@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "Matrix.hpp"
+#include "../include/Matrix.hpp"
 
 /**
  * @brief Test the default constructor of the Matrix class

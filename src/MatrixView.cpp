@@ -1,4 +1,4 @@
-#include "MatrixView.hpp"
+#include "../include/MatrixView.hpp"
 #include <stdexcept>
 
 MatrixView::MatrixView(Matrix& matrix, size_t startRow, size_t startCol, size_t num_rows, size_t num_cols)

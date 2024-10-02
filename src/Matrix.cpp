@@ -1,4 +1,4 @@
-#include "Matrix.hpp"
+#include "../include/Matrix.hpp"
 
 Matrix::Matrix(size_t rows, size_t cols)
 	: rows(rows), cols(cols), sum(0)

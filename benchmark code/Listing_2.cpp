@@ -1,8 +1,8 @@
 /* Listing 2: Demonstration of MatrixView behaviour */
 
 #include <iostream>
-#include "../Matrix.hpp"
-#include "../MatrixView.hpp"
+#include "../include/Matrix.hpp"
+#include "../include/MatrixView.hpp"
 void ft_listing_2()
 {
 	Matrix m(10, 4);

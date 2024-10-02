@@ -1,4 +1,4 @@
-#include "fornebius.hpp"
+#include "../include/fornebius.hpp"
 
 double frobeniusNorm(const Matrix& m) {
     return m.frobeniusNorm();

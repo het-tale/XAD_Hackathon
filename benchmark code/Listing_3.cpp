@@ -3,9 +3,9 @@
 #include <random>
 #include <chrono>
 #include <iostream>
-#include "../Matrix.hpp"
-#include "../MatrixView.hpp"
-#include "../fornebius.hpp"
+#include "../include/Matrix.hpp"
+#include "../include/MatrixView.hpp"
+#include "../include/fornebius.hpp"
 
 
 void ft_listing_3() {

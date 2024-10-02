@@ -25,7 +25,7 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-set(TEST_SOURCES matrix_test.cpp)
+set(TEST_SOURCES matrix_test.cpp  Matrix.cpp)
 add_executable(
   all_tests
   ${TEST_SOURCES}

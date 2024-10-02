@@ -9,7 +9,7 @@ void	ft_listing_1() {
 	m(0, 0) = 1.4;
 	std::cout << m(0, 0) << "\n"; // prints 1.4
 	std::cout << m(1, 1) << "\n"; // undefined behaviour – can be anything
-	m(11, 0); // undefined behaviour – no bounds checks in release mode
+	// m(11, 0); // This line throws an exception
 	const auto& m2(m);
 	std::cout << m2(0, 0) << "\n"; // prints 1.4
 
@@ -28,7 +28,7 @@ void	ft_listing_1() {
 	Matrix m5(2, 3);
 	m5 = std::move(m4); // move assign – no copies made
 	std::cout << m5(0, 0) << "\n"; // prints 3
-	std::cout << m4(0, 0) << "\n"; // undefined behaviour – should never happen
+	// std::cout << m4(0, 0) << "\n"; // This line throws an exception
 
 	Matrix m6(2, 3);
 	m6 = std::move(m5); // move assign – no copies made

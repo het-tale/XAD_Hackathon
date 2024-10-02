@@ -13,6 +13,10 @@ class Matrix {
 	public:
 		Matrix(size_t rows, size_t cols);
 		Matrix(size_t rows, size_t cols, double initValue);
+		Matrix(const Matrix &other);
+		Matrix &operator=(const Matrix &other);
+		Matrix(Matrix&& other);
+		Matrix &operator=(Matrix&& other);
 		~Matrix();
 
 		size_t	getRows() const;

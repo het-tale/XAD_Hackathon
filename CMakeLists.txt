@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.16)
 project(MatricesAndViewsChallenge VERSION 1.0 LANGUAGES CXX)
 
 # Specify source files for the executable
-set(SOURCES main.cpp Matrix.cpp)
+set(SOURCES Matrix.cpp benchmark\ code/Listing_1.cpp main.cpp)
 
 # Set C++ standard to C++17 and require it
 set(CMAKE_CXX_STANDARD 17)

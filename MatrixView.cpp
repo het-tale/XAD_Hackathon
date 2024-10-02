@@ -32,6 +32,8 @@ MatrixView& MatrixView::operator=(const MatrixView& other) {
         this->startRow = other.startRow;
         this->startCol = other.startCol;
     }
+    //To check later
+    return (*this);
 }
 
 MatrixView::MatrixView(MatrixView&& other)

@@ -12,17 +12,15 @@
  */
 TEST(MatrixTest, DefaultConstructor)
 {
-    // Test with small dimensions
+
     Matrix m1(2, 3);
     EXPECT_EQ(m1.getRows(), 2);
     EXPECT_EQ(m1.getCols(), 3);
 
-    // Test with larger dimensions
     Matrix m2(100, 200);
     EXPECT_EQ(m2.getRows(), 100);
     EXPECT_EQ(m2.getCols(), 200);
 
-    // Test that all elements are initialized to 0
     for (size_t i = 0; i < m1.getRows(); ++i)
     {
         for (size_t j = 0; j < m1.getCols(); ++j)
@@ -31,7 +29,6 @@ TEST(MatrixTest, DefaultConstructor)
         }
     }
 
-    // Test constructor with 0x0 dimensions
     Matrix m3(0, 0);
     EXPECT_EQ(m3.getRows(), 0);
     EXPECT_EQ(m3.getCols(), 0);
@@ -49,7 +46,7 @@ TEST(MatrixTest, DefaultConstructor)
  */
 TEST(MatrixTest, ConstructorWithInitialValue)
 {
-    // Test with small dimensions and positive initial value
+
     Matrix m1(2, 3, 5.5);
     EXPECT_EQ(m1.getRows(), 2);
     EXPECT_EQ(m1.getCols(), 3);
@@ -61,19 +58,16 @@ TEST(MatrixTest, ConstructorWithInitialValue)
         }
     }
 
-    // Test with larger dimensions and negative initial value
     Matrix m2(100, 200, -1.5);
     EXPECT_EQ(m2.getRows(), 100);
     EXPECT_EQ(m2.getCols(), 200);
     EXPECT_DOUBLE_EQ(m2(50, 100), -1.5);
 
-    // Test with zero initial value
     Matrix m3(5, 5, 0.0);
     EXPECT_EQ(m3.getRows(), 5);
     EXPECT_EQ(m3.getCols(), 5);
     EXPECT_DOUBLE_EQ(m3(2, 2), 0.0);
 
-    // Test constructor with 0x0 dimensions
     Matrix m4(0, 0, 10.0);
     EXPECT_EQ(m4.getRows(), 0);
     EXPECT_EQ(m4.getCols(), 0);
@@ -91,15 +85,13 @@ TEST(MatrixTest, ConstructorWithInitialValue)
  */
 TEST(MatrixTest, CopyConstructor)
 {
-    // Test with a non-empty matrix
+
     Matrix original(3, 4, 2.5);
     Matrix copy(original);
 
-    // Verify dimensions
     EXPECT_EQ(copy.getRows(), original.getRows());
     EXPECT_EQ(copy.getCols(), original.getCols());
 
-    // Verify all elements are copied correctly
     for (size_t i = 0; i < original.getRows(); ++i)
     {
         for (size_t j = 0; j < original.getCols(); ++j)
@@ -108,12 +100,10 @@ TEST(MatrixTest, CopyConstructor)
         }
     }
 
-    // Modify the copy and check that the original is unchanged
     copy(1, 1) = 10.0;
     EXPECT_DOUBLE_EQ(copy(1, 1), 10.0);
     EXPECT_DOUBLE_EQ(original(1, 1), 2.5);
 
-    // Test with a matrix containing different values
     Matrix original2(2, 2);
     original2(0, 0) = 1.0;
     original2(0, 1) = 2.0;
@@ -129,7 +119,6 @@ TEST(MatrixTest, CopyConstructor)
         }
     }
 
-    // // Test with an empty matrix
     Matrix emptyOriginal(0, 0);
     Matrix emptyCopy(emptyOriginal);
     EXPECT_EQ(emptyCopy.getRows(), 0);
@@ -149,15 +138,12 @@ TEST(MatrixTest, CopyConstructor)
  */
 TEST(MatrixTest, AssignmentOperator)
 {
-    // Test with a non-empty matrix
     Matrix original(3, 4, 2.5);
     Matrix assigned = original;
 
-    // Verify dimensions
     EXPECT_EQ(assigned.getRows(), original.getRows());
     EXPECT_EQ(assigned.getCols(), original.getCols());
 
-    // Verify all elements are copied correctly
     for (size_t i = 0; i < original.getRows(); ++i)
     {
         for (size_t j = 0; j < original.getCols(); ++j)
@@ -166,12 +152,10 @@ TEST(MatrixTest, AssignmentOperator)
         }
     }
 
-    // Modify the assigned matrix and check that the original is unchanged
     assigned(1, 1) = 10.0;
     EXPECT_DOUBLE_EQ(assigned(1, 1), 10.0);
     EXPECT_DOUBLE_EQ(original(1, 1), 2.5);
 
-    // Test with a matrix containing different values
     Matrix original2(2, 2);
     original2(0, 0) = 1.0;
     original2(0, 1) = 2.0;
@@ -187,13 +171,11 @@ TEST(MatrixTest, AssignmentOperator)
         }
     }
 
-    // Test with an empty matrix
     Matrix emptyOriginal(0, 0);
     Matrix emptyAssigned = emptyOriginal;
     EXPECT_EQ(emptyAssigned.getRows(), 0);
     EXPECT_EQ(emptyAssigned.getCols(), 0);
 
-    // Test self-assignment
     Matrix selfAssign(2, 2, 1.0);
     selfAssign = selfAssign;
     EXPECT_EQ(selfAssign.getRows(), 2);
@@ -201,7 +183,6 @@ TEST(MatrixTest, AssignmentOperator)
     EXPECT_DOUBLE_EQ(selfAssign(0, 0), 1.0);
     EXPECT_DOUBLE_EQ(selfAssign(1, 1), 1.0);
 
-    // Test assignment to an existing matrix (should replace contents)
     Matrix existing(5, 5, 3.0);
     existing = original2;
     EXPECT_EQ(existing.getRows(), 2);

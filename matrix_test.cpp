@@ -190,3 +190,56 @@ TEST(MatrixTest, AssignmentOperator)
     EXPECT_DOUBLE_EQ(existing(0, 0), 1.0);
     EXPECT_DOUBLE_EQ(existing(1, 1), 4.0);
 }
+
+/**
+ * @brief Test the move constructor of the Matrix class
+ *
+ * This test case verifies:
+ * 1. The move constructor creates a new matrix with the same dimensions
+ * 2. All elements are correctly moved from the original matrix
+ * 3. The original matrix is left in a valid but unspecified state
+ * 4. It works with matrices of different sizes and values
+ * 5. It correctly handles empty matrices (0x0)
+ */
+TEST(MatrixTest, MoveConstructor)
+{
+    Matrix original(3, 4, 2.5);
+    size_t originalRows = original.getRows();
+    size_t originalCols = original.getCols();
+
+    Matrix moved(std::move(original));
+
+    EXPECT_EQ(moved.getRows(), originalRows);
+    EXPECT_EQ(moved.getCols(), originalCols);
+
+    for (size_t i = 0; i < moved.getRows(); ++i)
+    {
+        for (size_t j = 0; j < moved.getCols(); ++j)
+        {
+            EXPECT_DOUBLE_EQ(moved(i, j), 2.5);
+        }
+    }
+
+    EXPECT_EQ(original.getRows(), 0);
+    EXPECT_EQ(original.getCols(), 0);
+
+    Matrix original2(2, 2);
+    original2(0, 0) = 1.0;
+    original2(0, 1) = 2.0;
+    original2(1, 0) = 3.0;
+    original2(1, 1) = 4.0;
+
+    Matrix moved2(std::move(original2));
+
+    EXPECT_EQ(moved2.getRows(), 2);
+    EXPECT_EQ(moved2.getCols(), 2);
+    EXPECT_DOUBLE_EQ(moved2(0, 0), 1.0);
+    EXPECT_DOUBLE_EQ(moved2(0, 1), 2.0);
+    EXPECT_DOUBLE_EQ(moved2(1, 0), 3.0);
+    EXPECT_DOUBLE_EQ(moved2(1, 1), 4.0);
+
+    Matrix emptyOriginal(0, 0);
+    Matrix emptyMoved(std::move(emptyOriginal));
+    EXPECT_EQ(emptyMoved.getRows(), 0);
+    EXPECT_EQ(emptyMoved.getCols(), 0);
+}

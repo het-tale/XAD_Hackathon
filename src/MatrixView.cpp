@@ -11,7 +11,7 @@ MatrixView::MatrixView(Matrix& matrix, size_t row, size_t col)
     : matrix(matrix), row(row), col(col), matrix_ptr(matrix.getMatrix()), sumComputed(false), sum(0), cols(1), rows(1), startRow(row), startCol(col) {
 
         // Construct a view of a single element
-        std::cout << GREEN << "MatrixView(Matrix& matrix, size_t row, size_t col) called" << DEFAULT   << std::endl;
+        // std::cout << GREEN << "MatrixView(Matrix& matrix, size_t row, size_t col) called" << DEFAULT   << std::endl;
 }
 
 MatrixView::MatrixView(Matrix& matrix, size_t startRow, size_t startCol, size_t num_rows, size_t num_cols)
@@ -24,7 +24,7 @@ MatrixView::MatrixView(Matrix& matrix, size_t startRow, size_t startCol, size_t 
     }
     sumComputed = false;
     sum = 0;
-    std::cout << GREEN << "MatrixView(Matrix& matrix, size_t startRow, size_t startCol, size_t num_rows, size_t num_cols) called" << DEFAULT   << std::endl;
+    // std::cout << GREEN << "MatrixView(Matrix& matrix, size_t startRow, size_t startCol, size_t num_rows, size_t num_cols) called" << DEFAULT   << std::endl;
 }
 
 MatrixView::MatrixView(const MatrixView& other)
@@ -32,7 +32,7 @@ MatrixView::MatrixView(const MatrixView& other)
     // Copy constructor
     sumComputed = other.sumComputed;
     sum = other.sum;
-    std::cout << GREEN << "MatrixView(const MatrixView& other) called" << DEFAULT   << std::endl;
+    // std::cout << GREEN << "MatrixView(const MatrixView& other) called" << DEFAULT   << std::endl;
 }
 
 
@@ -47,7 +47,7 @@ MatrixView& MatrixView::operator=(const MatrixView& other) {
         this->startRow = other.startRow;
         this->startCol = other.startCol;
     }
-    std::cout << GREEN << "MatrixView& MatrixView::operator=(const MatrixView& other) called" << DEFAULT   << std::endl;
+    // std::cout << GREEN << "MatrixView& MatrixView::operator=(const MatrixView& other) called" << DEFAULT   << std::endl;
     return (*this);
 }
 
@@ -70,7 +70,7 @@ MatrixView::MatrixView(MatrixView&& other)
     other.cols = 0;
     other.startRow = 0;
     other.startCol = 0;
-    std::cout << GREEN << "MatrixView(MatrixView&& other) called" << DEFAULT   << std::endl;
+    // std::cout << GREEN << "MatrixView(MatrixView&& other) called" << DEFAULT   << std::endl;
 }
 
 MatrixView& MatrixView::operator=(MatrixView&& other) {
@@ -81,13 +81,13 @@ MatrixView& MatrixView::operator=(MatrixView&& other) {
         this->startRow = other.startRow;
         this->startCol = other.startCol;
     }
-    std::cout << GREEN << "MatrixView& MatrixView::operator=(MatrixView&& other) called" << DEFAULT   << std::endl;
+    // std::cout << GREEN << "MatrixView& MatrixView::operator=(MatrixView&& other) called" << DEFAULT   << std::endl;
     return *this;
 }
 
 MatrixView::~MatrixView() {
     // No dynamic allocation, so nothing to clean up
-    std::cout << RED << "MatrixView::~MatrixView() called" << DEFAULT   << std::endl;
+    // std::cout << RED << "MatrixView::~MatrixView() called" << DEFAULT   << std::endl;
 }
 
 size_t MatrixView::getRows() const {

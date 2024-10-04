@@ -18,7 +18,7 @@ Matrix::Matrix(size_t rows, size_t cols)
 	for (size_t i = 0; i < rows; i++) {
 		this->matrix[i] = new double[cols];
 	}
-	std::cout << GREEN << "Matrix default constructor called" << DEFAULT << std::endl;
+	// std::cout << GREEN << "Matrix default constructor called" << DEFAULT << std::endl;
 }
 
 
@@ -32,12 +32,12 @@ Matrix::Matrix(size_t rows, size_t cols, double initValue)
 		for (size_t j = 0; j < cols; j++)
 			this->matrix[i][j] = initValue;
 	}
-	std::cout << GREEN << "Matrix parameterized constructor called" << DEFAULT << std::endl;
+	// std::cout << GREEN << "Matrix parameterized constructor called" << DEFAULT << std::endl;
 }
 
 Matrix::Matrix(const Matrix &other) {
 	(*this) = other;
-	std::cout << GREEN << "Matrix copy constructor called" << DEFAULT << std::endl;
+	// std::cout << GREEN << "Matrix copy constructor called" << DEFAULT << std::endl;
 }
 
 
@@ -60,7 +60,7 @@ Matrix &Matrix::operator=(const Matrix &other) {
 		}
 
 	}
-	std::cout << GREEN << "Matrix copy assignment operator called" << DEFAULT << std::endl;
+	// std::cout << GREEN << "Matrix copy assignment operator called" << DEFAULT << std::endl;
 	return (*this);
 }
 
@@ -71,7 +71,7 @@ Matrix::Matrix(Matrix&& other)
 {
 	other.rows = 0;
 	other.cols = 0;
-	std::cout << GREEN << "Matrix move constructor called" << DEFAULT << std::endl;
+	// std::cout << GREEN << "Matrix move constructor called" << DEFAULT << std::endl;
 }
 
 Matrix &Matrix::operator=(Matrix&& other) {
@@ -83,7 +83,7 @@ Matrix &Matrix::operator=(Matrix&& other) {
 		other.rows = 0;
 		other.cols = 0;
 	}
-	std::cout << GREEN << "Matrix move assignment operator called" << DEFAULT << std::endl;
+	// std::cout << GREEN << "Matrix move assignment operator called" << DEFAULT << std::endl;
 	return *this;
 }
 
@@ -96,7 +96,7 @@ Matrix::~Matrix() {
 		}
 		// delete[] this->matrix;
 	}
-	std::cout << RED << "Matrix destructor called" << DEFAULT << std::endl;
+	// std::cout << RED << "Matrix destructor called" << DEFAULT << std::endl;
 }
 
 

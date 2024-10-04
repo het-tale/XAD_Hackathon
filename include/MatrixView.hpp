@@ -1,25 +1,38 @@
 #ifndef MATRIXVIEW_HPP
 #define MATRIXVIEW_HPP
 
-#include "Matrix.hpp"
+#include <iostream>
+#include <cmath>
+#include <stdexcept>
+#include <cstddef> 
+
+
+
+class Matrix;
+class MatrixViewHelper;
 
 class MatrixView {
-	private:
+	public:
 		Matrix& matrix;
+        double **matrix_ptr;
 		size_t rows;
 		size_t cols;
 		size_t startRow;
 		size_t startCol;
-       mutable double sum;
+        mutable double sum;
         mutable bool sumComputed;
+        size_t row;
+        size_t col;
 
         
 
 	public:
         // Constructors
+        MatrixView(Matrix& matrix, size_t row, size_t col);
 		MatrixView(Matrix& matrix, size_t rows, size_t cols, size_t startRow, size_t startCol);
         MatrixView(const MatrixView& other);
         MatrixView& operator=(const MatrixView& other);
+        MatrixView& operator=(double value);
         MatrixView(MatrixView&& other);
         MatrixView& operator=(MatrixView&& other);
 
@@ -30,17 +43,30 @@ class MatrixView {
         size_t getCols() const;
         size_t getStartRow() const;
         size_t getStartCol() const;
+        double getValue(size_t row, size_t col) const;
 
-        double frobeniusNorm() const; 
 
-        operator Matrix() const;
 
         // Overload the () operator to access elements of the matrix
-        double& operator()(size_t row, size_t col);
-        const double operator()(size_t row, size_t col) const;
+        // const double& operator()(size_t row, size_t col);
+        MatrixViewHelper operator()(size_t row, size_t col);
+        const double& operator()(size_t row, size_t col) const;
+        
+        void updateValueAndSum(double value, size_t row, size_t col);
+
+        void setValue(size_t row, size_t col, double value);
+        
+        operator Matrix() const;
+        operator double() const;
 
 
-		MatrixView subMatrix(size_t rows, size_t cols, size_t startRow, size_t startCol) const;
+        double frobeniusNorm() const; 
+		// MatrixView subMatrix(size_t rows, size_t cols, size_t startRow, size_t startCol) const;
 };
+#include "Matrix.hpp"
+#include "MatrixViewHelper.hpp"
+
+
+
 
 #endif

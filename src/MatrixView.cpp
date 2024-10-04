@@ -1,20 +1,30 @@
 #include "../include/MatrixView.hpp"
+#include <cmath>
+#include "../include/Matrix.hpp"
 #include <stdexcept>
+
+
+
+
+
+MatrixView::MatrixView(Matrix& matrix, size_t row, size_t col)
+    : matrix(matrix), row(row), col(col), matrix_ptr(matrix.getMatrix()), sumComputed(false), sum(0), cols(1), rows(1), startRow(row), startCol(col) {
+
+        // Construct a view of a single element
+        std::cout << GREEN << "MatrixView(Matrix& matrix, size_t row, size_t col) called" << DEFAULT   << std::endl;
+}
 
 MatrixView::MatrixView(Matrix& matrix, size_t startRow, size_t startCol, size_t num_rows, size_t num_cols)
     : matrix(matrix), rows(num_rows), cols(num_cols), startRow(startRow), startCol(startCol) {
+
+    matrix_ptr = matrix.getMatrix();
+    
     if (startRow + rows > matrix.getRows() || startCol + cols > matrix.getCols()) {
-        std::cout << "num_rows  " << rows  << " matrix.getRows(): " << matrix.getRows() << std::endl;
-        std::cout << "num_cols  " << cols  << " matrix.getCols(): " << matrix.getCols() << std::endl;
-        std::cout << "startRow  " << startRow  << " matrix.getRows(): " << matrix.getRows() << std::endl;
-        std::cout << "startCol  " << startCol  << " matrix.getCols(): " << matrix.getCols() << std::endl;
-        std::cout << "startCol + num_cols: " << startCol + num_cols << std::endl;
-        std::cout << "startRow + num_rows: " << startRow + num_rows << std::endl;
-        std::cout << "MatrixView dimensions exceed matrix bounds" << std::endl;
         throw std::out_of_range("MatrixView dimensions exceed matrix bounds");
     }
     sumComputed = false;
     sum = 0;
+    std::cout << GREEN << "MatrixView(Matrix& matrix, size_t startRow, size_t startCol, size_t num_rows, size_t num_cols) called" << DEFAULT   << std::endl;
 }
 
 MatrixView::MatrixView(const MatrixView& other)
@@ -22,7 +32,12 @@ MatrixView::MatrixView(const MatrixView& other)
     // Copy constructor
     sumComputed = other.sumComputed;
     sum = other.sum;
+    std::cout << GREEN << "MatrixView(const MatrixView& other) called" << DEFAULT   << std::endl;
 }
+
+
+
+
 
 MatrixView& MatrixView::operator=(const MatrixView& other) {
     if (this != &other) {
@@ -32,18 +47,30 @@ MatrixView& MatrixView::operator=(const MatrixView& other) {
         this->startRow = other.startRow;
         this->startCol = other.startCol;
     }
-    //To check later
+    std::cout << GREEN << "MatrixView& MatrixView::operator=(const MatrixView& other) called" << DEFAULT   << std::endl;
     return (*this);
 }
+
+MatrixView& MatrixView::operator=(double value) {
+
+		double d = matrix.get(row, col);
+		matrix.setSum(matrix.getSum() - pow(d, 2) + pow(value, 2));
+        sum = sum - pow(d, 2) + pow(value, 2);
+        matrix.set(row, col, value);
+        return *this;
+}
+
 
 MatrixView::MatrixView(MatrixView&& other)
     : matrix(other.matrix), rows(other.rows), cols(other.cols), startRow(other.startRow), startCol(other.startCol) {
     // Move constructor
-    // other.matrix = nullptr;
+    other.sumComputed = false;
+    other.sum = 0;
     other.rows = 0;
     other.cols = 0;
     other.startRow = 0;
     other.startCol = 0;
+    std::cout << GREEN << "MatrixView(MatrixView&& other) called" << DEFAULT   << std::endl;
 }
 
 MatrixView& MatrixView::operator=(MatrixView&& other) {
@@ -54,11 +81,13 @@ MatrixView& MatrixView::operator=(MatrixView&& other) {
         this->startRow = other.startRow;
         this->startCol = other.startCol;
     }
+    std::cout << GREEN << "MatrixView& MatrixView::operator=(MatrixView&& other) called" << DEFAULT   << std::endl;
     return *this;
 }
 
 MatrixView::~MatrixView() {
     // No dynamic allocation, so nothing to clean up
+    std::cout << RED << "MatrixView::~MatrixView() called" << DEFAULT   << std::endl;
 }
 
 size_t MatrixView::getRows() const {
@@ -77,46 +106,59 @@ size_t MatrixView::getStartCol() const {
     return startCol;
 }
 
-double& MatrixView::operator()(size_t row, size_t col) {
-     std::cout << "const "<< rows << " " << cols <<  std::endl;
-     std::cout << "const "<< row << " " << col <<  std::endl;
-     std::cout << "row >= rows: " << matrix.getRows() << std::endl;
-     std::cout << "col >= cols: " <<  matrix.getCols() << std::endl;
+double MatrixView::getValue(size_t row, size_t col) const
+{
+    return matrix_ptr[row + startRow][col + startCol];
+}
+
+
+
+
+
+
+/*
+    Overload the () operator to access elements of the matrix
+
+    THE MatrixViewHelper is a helper class to have controll on the assignment and have access to the assigned value  to update the sum
+    const double& operator()(size_t row, size_t col) const; // for const object no need for helper class since we won't update the values
+*/
+MatrixViewHelper MatrixView::operator()(size_t row, size_t col) {
+    
     if (row >= rows || col >= cols) {
         throw std::out_of_range("Index out of range");
     }
-    return *(&matrix(startRow + row, startCol + col));
+    return MatrixViewHelper(*this, row, col);
 }
 
-const double MatrixView::operator()(size_t row, size_t col) const {
-    std::cout << "const "<< row << " " << col <<  std::endl;
+
+const double& MatrixView::operator()(size_t row, size_t col) const {
     if (row >= rows || col >= cols) {
         throw std::out_of_range("Index out of range");
     }
-    return matrix(startRow + row, startCol + col);
+
+    return matrix_ptr[startRow + row][startCol + col];
 }
 
 
 
-MatrixView MatrixView::subMatrix(size_t subRows, size_t subCols, size_t subStartRow, size_t subStartCol) const {
-    if (subStartRow + subRows > rows || subStartCol + subCols > cols) {
-        throw std::out_of_range("SubMatrix dimensions exceed MatrixView bounds");
-    }
-    return MatrixView(matrix, subRows, subCols, startRow + subStartRow, startCol + subStartCol);
+void MatrixView::updateValueAndSum(double value, size_t row, size_t col)
+{
+    double d = matrix_ptr[row + startRow][col + startCol];
+    sum = sum - pow(d, 2) + pow(value, 2);
+    matrix_ptr[row + startRow][col + startCol] = value;
 }
 
- double MatrixView::frobeniusNorm() const {
-        if (!sumComputed) {
-            sum = 0;
-            for (int i = 0; i < rows; ++i) {
-                for (int j = 0; j < cols; ++j) {
-                    sum += std::pow((*this)(i, j), 2);
-                }
-            }
-            sumComputed = true;
-        }
-        return std::sqrt(sum);
-    }
+
+void MatrixView::setValue(size_t row, size_t col, double value)
+{
+    matrix_ptr[row + startRow][col + startCol] = value;
+}
+
+
+
+
+
+
 
 MatrixView::operator Matrix() const {
         Matrix tmp(this->getRows(), this->getCols());
@@ -126,4 +168,21 @@ MatrixView::operator Matrix() const {
             }
         }
         return tmp;
+}
+
+MatrixView::operator double() const {
+        return matrix.get(row, col);
+}
+
+double MatrixView::frobeniusNorm() const {
+    if (!sumComputed) {
+        sum = 0;
+        for (int i = 0; i < rows; ++i) {
+                for (int j = 0; j < cols; ++j) {
+                    sum += std::pow((*this)(i, j), 2);
+                }
+            }
+        sumComputed = true;
     }
+    return std::sqrt(sum);
+}

@@ -1,7 +1,7 @@
 /* Listing 1: Demonstration of required matrix operations / behaviour */
 
 #include <iostream>
-#include "../Matrix.hpp"
+#include "../include/Matrix.hpp"
 
 void	ft_listing_1() {
 	Matrix m(10, 4);

@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.16)
 project(MatricesAndViewsChallenge VERSION 1.0 LANGUAGES CXX)
 
 # Specify source files for the executable
-set(SOURCES Matrix.cpp benchmark\ code/Listing_1.cpp benchmark\ code/Listing_2.cpp benchmark\ code/Listing_3.cpp main.cpp MatrixView.cpp fornebius.cpp)
+set(SOURCES src/Matrix.cpp benchmark\ code/Listing_1.cpp benchmark\ code/Listing_2.cpp benchmark\ code/Listing_3.cpp src/main.cpp src/MatrixView.cpp src/frobeniusNorm.cpp src/MatrixViewHelper.cpp )
 
 # Set C++ standard to C++17 and require it
 set(CMAKE_CXX_STANDARD 17)
@@ -27,7 +27,7 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-set(TEST_SOURCES src/matrix_test.cpp src/Matrix.cpp)
+set(TEST_SOURCES src/matrix_test.cpp src/Matrix.cpp src/MatrixView.cpp src/frobeniusNorm.cpp src/MatrixViewHelper.cpp)
 add_executable(
   all_tests
   ${TEST_SOURCES}

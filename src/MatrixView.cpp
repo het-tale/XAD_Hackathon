@@ -41,6 +41,7 @@ MatrixView::MatrixView(const MatrixView &other)
     : matrix(other.matrix), rows(other.rows), cols(other.cols), startRow(other.startRow), startCol(other.startCol)
 {
     sumComputed = other.sumComputed;
+    matrix_ptr = other.matrix_ptr;
     sum = other.sum;
 }
 
@@ -58,6 +59,7 @@ MatrixView &MatrixView::operator=(const MatrixView &other)
         this->cols = other.cols;
         this->startRow = other.startRow;
         this->startCol = other.startCol;
+        this->matrix_ptr = other.matrix_ptr;
     }
     return (*this);
 }
@@ -85,6 +87,7 @@ MatrixView::MatrixView(MatrixView &&other)
     : matrix(other.matrix), rows(other.rows), cols(other.cols), startRow(other.startRow), startCol(other.startCol)
 {
     other.sumComputed = false;
+    other.matrix_ptr = nullptr;
     other.sum = 0;
     other.rows = 0;
     other.cols = 0;
@@ -103,6 +106,7 @@ MatrixView &MatrixView::operator=(MatrixView &&other)
     {
         this->matrix = other.matrix;
         this->rows = other.rows;
+        this->matrix_ptr = other.matrix_ptr;
         this->cols = other.cols;
         this->startRow = other.startRow;
         this->startCol = other.startCol;

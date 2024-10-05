@@ -35,16 +35,6 @@ This script will:
 - Compile the source files.
 - Execute the program.
 
-### Running Tests
-#### linux/macos
-```bash
-./scripts/build_and_run.sh --test
-```
-
-This script will:
-
-- Execute the unit tests to verify the functionality of the program.
-
 #### windows
 ```bash
 scripts\build_and_run.bat
@@ -59,6 +49,16 @@ This script will:
 
 ### Running Tests
 #### linux/macos
+```bash
+./scripts/build_and_run.sh --test
+```
+
+This script will:
+
+- Execute the unit tests to verify the functionality of the program.
+
+
+#### windows
 ```bash
 scripts\build_and_run.bat --test
 ```

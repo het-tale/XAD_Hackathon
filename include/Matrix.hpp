@@ -42,12 +42,17 @@ class Matrix {
 		double getSum() const;
 		double **getMatrix() const;
 		bool getSumComputed() const;
-		double get(size_t row, size_t col) const;
+		// double get(size_t row, size_t col) const;
 
 	
 		void  setSum(double value) ;
 		void setSumComputed(bool value) ;
 		void set(size_t row, size_t col, double value);
+		double getValue(size_t row, size_t col) const;
+
+	
+		// void  setSum(double value) const;
+		void setValue(size_t row, size_t col, double value);
 
 		MatrixView operator()(size_t row, size_t col);
 		const double &operator()(size_t row, size_t col) const;

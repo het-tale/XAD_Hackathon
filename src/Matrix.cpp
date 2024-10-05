@@ -121,7 +121,9 @@ double **Matrix::getMatrix() const {
 double Matrix::get(size_t row, size_t col) const {
 	return this->matrix[row][col];
 }
-
+bool Matrix::getSumComputed() const  {
+	return this->sumComputed;
+}
 
 
 /*
@@ -147,11 +149,15 @@ double &Matrix::operator()(size_t row, size_t col) {
 */
 
 
+void Matrix::setSumComputed(bool value)  {
+	this->sumComputed = value;
+}
+
 void Matrix::set(size_t row, size_t col, double value) {
 	this->matrix[row][col] = value;
 }
 
-void Matrix::setSum(double value) const {
+void Matrix::setSum(double value)  {
 	this->sum = value;
 }
 

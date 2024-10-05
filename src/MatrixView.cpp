@@ -171,6 +171,9 @@ MatrixView::operator Matrix() const {
                 tmp(i, j) = (*this)(i, j); // Copy elements from view
             }
         }
+        // std::cout << tmp(2,3) << std::endl;
+        tmp.setSum((this)->sum);
+        tmp.setSumComputed(this->sumComputed);
         return tmp;
 }
 

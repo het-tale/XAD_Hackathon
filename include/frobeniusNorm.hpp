@@ -6,7 +6,7 @@
 
 // Declaration of Frobenius norm functions
 double frobeniusNorm(const Matrix& m);
-double frobeniusNorm(const MatrixView& view);
+// double frobeniusNorm(const MatrixView& view);
 
 
 

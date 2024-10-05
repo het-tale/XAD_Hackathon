@@ -23,6 +23,8 @@ MatrixView::MatrixView(Matrix &matrix, size_t startRow, size_t startCol, size_t 
     : matrix(matrix), rows(num_rows), cols(num_cols), startRow(startRow), startCol(startCol)
 {
     matrix_ptr = matrix.getMatrix();
+    row = 0;
+    col = 0;
 
     if (startRow + rows > matrix.getRows() || startCol + cols > matrix.getCols())
     {
@@ -86,6 +88,7 @@ MatrixView &MatrixView::operator=(double value)
 MatrixView::MatrixView(MatrixView &&other)
     : matrix(other.matrix), rows(other.rows), cols(other.cols), startRow(other.startRow), startCol(other.startCol)
 {
+    matrix_ptr = other.matrix_ptr;
     other.sumComputed = false;
     other.matrix_ptr = nullptr;
     other.sum = 0;
@@ -93,6 +96,8 @@ MatrixView::MatrixView(MatrixView &&other)
     other.cols = 0;
     other.startRow = 0;
     other.startCol = 0;
+    row = 0;
+    col = 0;
 }
 
 /**
@@ -106,10 +111,15 @@ MatrixView &MatrixView::operator=(MatrixView &&other)
     {
         this->matrix = other.matrix;
         this->rows = other.rows;
-        this->matrix_ptr = other.matrix_ptr;
+        this->matrix_ptr = std::move(other.matrix_ptr);
         this->cols = other.cols;
         this->startRow = other.startRow;
         this->startCol = other.startCol;
+
+        other.rows = 0;
+        other.cols = 0;
+        other.startRow = 0;
+        other.startCol = 0;
     }
     return *this;
 }

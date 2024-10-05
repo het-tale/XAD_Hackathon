@@ -41,11 +41,11 @@ class Matrix {
 		size_t	getCols() const;
 		double getSum() const;
 		double **getMatrix() const;
-		double get(size_t row, size_t col) const;
+		double getValue(size_t row, size_t col) const;
 
 	
 		void  setSum(double value) const;
-		void set(size_t row, size_t col, double value);
+		void setValue(size_t row, size_t col, double value);
 
 		MatrixView operator()(size_t row, size_t col);
 		const double &operator()(size_t row, size_t col) const;

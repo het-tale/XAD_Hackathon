@@ -27,7 +27,7 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-set(TEST_SOURCES src/matrix_test.cpp src/Matrix.cpp src/MatrixView.cpp src/frobeniusNorm.cpp src/MatrixViewHelper.cpp)
+set(TEST_SOURCES src/matrix_test.cpp src/matrix_view_test.cpp src/matrix_view_helper_test.cpp src/Matrix.cpp src/MatrixView.cpp src/frobeniusNorm.cpp src/MatrixViewHelper.cpp)
 add_executable(
   all_tests
   ${TEST_SOURCES}

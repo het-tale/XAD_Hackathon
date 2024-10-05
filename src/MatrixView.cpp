@@ -31,6 +31,7 @@ MatrixView::MatrixView(const MatrixView& other)
     : matrix(other.matrix), rows(other.rows), cols(other.cols), startRow(other.startRow), startCol(other.startCol) {
     // Copy constructor
     sumComputed = other.sumComputed;
+    matrix_ptr = other.matrix_ptr;
     sum = other.sum;
     // std::cout << GREEN << "MatrixView(const MatrixView& other) called" << DEFAULT   << std::endl;
 }
@@ -46,6 +47,7 @@ MatrixView& MatrixView::operator=(const MatrixView& other) {
         this->cols = other.cols;
         this->startRow = other.startRow;
         this->startCol = other.startCol;
+        this->matrix_ptr = other.matrix_ptr;
     }
     // std::cout << GREEN << "MatrixView& MatrixView::operator=(const MatrixView& other) called" << DEFAULT   << std::endl;
     return (*this);
@@ -62,9 +64,10 @@ MatrixView& MatrixView::operator=(double value) {
 
 
 MatrixView::MatrixView(MatrixView&& other)
-    : matrix(other.matrix), rows(other.rows), cols(other.cols), startRow(other.startRow), startCol(other.startCol) {
+    : matrix(other.matrix), rows(other.rows), cols(other.cols), startRow(other.startRow), startCol(other.startCol), matrix_ptr(other.matrix_ptr) {
     // Move constructor
     other.sumComputed = false;
+    other.matrix_ptr = nullptr;
     other.sum = 0;
     other.rows = 0;
     other.cols = 0;
@@ -77,6 +80,7 @@ MatrixView& MatrixView::operator=(MatrixView&& other) {
     if (this != &other) {
         this->matrix = other.matrix;
         this->rows = other.rows;
+        this->matrix_ptr = other.matrix_ptr;
         this->cols = other.cols;
         this->startRow = other.startRow;
         this->startCol = other.startCol;
